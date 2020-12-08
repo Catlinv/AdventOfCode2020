@@ -1,0 +1,31 @@
+import re
+
+
+def solve():
+    nr = 0
+    valid_fields = [0, 0, 0, 0, 0, 0, 0, 0]
+    file1 = open('in.txt', 'r')
+    file2 = open('out.txt', 'w')
+    A = file1.readlines()
+    for line in A:
+        if len(line) == 1:
+            if valid_fields == [1, 1, 1, 1, 1, 1, 1, 1] or valid_fields == [1, 1, 1, 1, 1, 1, 1, 0]:
+                nr += 1
+            valid_fields = [0, 0, 0, 0, 0, 0, 0, 0]
+        else:
+            valid_fields[0] += 1 if (re.search("byr:", line)) else 0
+            valid_fields[1] += 1 if re.search("iyr:", line) else 0
+            valid_fields[2] += 1 if re.search("eyr:", line) else 0
+            valid_fields[3] += 1 if re.search("hgt:", line) else 0
+            valid_fields[4] += 1 if re.search("hcl:", line) else 0
+            valid_fields[5] += 1 if re.search("ecl:", line) else 0
+            valid_fields[6] += 1 if re.search("pid:", line) else 0
+            valid_fields[7] += 1 if re.search("cid:", line) else 0
+            # print(valid_fields)
+    if valid_fields == [1, 1, 1, 1, 1, 1, 1, 1] or valid_fields == [1, 1, 1, 1, 1, 1, 1, 0]:
+        nr += 1
+    print(nr)
+
+
+if __name__ == '__main__':
+    solve()
