@@ -1,0 +1,36 @@
+import re
+
+
+def solve():
+    nr = 0
+    valid_fields = [0, 0, 0, 0, 0, 0, 0, 0]
+    file1 = open('in.txt', 'r')
+    file2 = open('out.txt', 'w')
+    A = file1.readlines()
+    for line in A:
+        if len(line) == 1:
+            if valid_fields == [1, 1, 1, 1, 1, 1, 1, 1] or valid_fields == [1, 1, 1, 1, 1, 1, 1, 0]:
+                nr += 1
+            valid_fields = [0, 0, 0, 0, 0, 0, 0, 0]
+        else:
+            x = re.search("byr:([0-9]{4})", line)
+            valid_fields[0] += int(2002 >= int(x.group(1)) >= 1920) if x else 0
+            x = re.search("iyr:([0-9]{4})", line)
+            valid_fields[1] += int(2020 >= int(x.group(1)) >= 2010) if x else 0
+            x = re.search("eyr:([0-9]{4})", line)
+            valid_fields[2] += int(2030 >= int(x.group(1)) >= 2020) if x else 0
+            x = re.search("hgt:(([0-9]*)((cm)|(in)))", line)
+            valid_fields[3] += int(
+                193 >= int(x.group(2)) >= 150 if x.group(3) == "cm" else 76 >= int(x.group(2)) >= 59 and x.group(3) == "in") if x else 0
+            valid_fields[4] += 1 if re.search("hcl:#([0-9a-f]{6})", line) else 0
+            valid_fields[5] += 1 if re.search("ecl:((amb)|(blu)|(brn)|(gry)|(grn)|(hzl)|(oth))", line) else 0
+            valid_fields[6] += 1 if re.search("pid:[0-9]{9}", line) else 0
+            valid_fields[7] += 1 if re.search("cid:", line) else 0
+            # print(valid_fields)
+    if valid_fields == [1, 1, 1, 1, 1, 1, 1, 1] or valid_fields == [1, 1, 1, 1, 1, 1, 1, 0]:
+        nr += 1
+    print(nr)
+
+
+if __name__ == '__main__':
+    solve()
