@@ -1,0 +1,27 @@
+def solve():
+    nr = 0
+    peeps = 0
+    total = 0
+    file1 = open('in.txt', 'r')
+    file2 = open('out.txt', 'w')
+    A = file1.readlines()
+    p = [0] * 30
+    for line in A:
+        if line == '\n':
+            for i in range(0, 30):
+                total += int(p[i] == peeps)
+            p = [0] * 30
+            peeps = 0
+        else:
+            peeps += 1
+            for i in range(0, len(line)):
+                a = line[i]
+                if a == '\n': continue
+                p[ord('z') - ord(a)] += 1
+    for i in range(0, 30):
+        total += int(p[i] == peeps)
+    print(total)
+
+
+if __name__ == '__main__':
+    solve()
