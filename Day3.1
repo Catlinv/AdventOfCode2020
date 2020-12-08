@@ -1,0 +1,19 @@
+def solve():
+    nr = 0
+    r = 3
+    d = 1
+    pos_x = 0
+    pos_y = 0
+    file1 = open('in.txt', 'r')
+    file2 = open('out.txt', 'w')
+    A = file1.readlines()
+    while pos_y + d < len(A):
+        # print(pos_x,pos_y, A[pos_y][pos_x] == "#")
+        pos_x = (pos_x+r) % (len(A[0])-1)
+        pos_y = pos_y + d
+        nr += A[pos_y][pos_x] == "#"
+    print(nr)
+# 11 x 11
+
+if __name__ == '__main__':
+    solve()
