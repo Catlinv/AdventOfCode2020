@@ -1,0 +1,25 @@
+def solve():
+    nr = 0
+    total = 0
+    file1 = open('in.txt', 'r')
+    file2 = open('out.txt', 'w')
+    A = file1.readlines()
+    p = [0] * 50
+    for line in A:
+        if line == '\n':
+            total += nr
+            nr = 0
+            p = [0] * 50
+        else:
+            for i in range(0, len(line)):
+                a = line[i]
+                if a == '\n': continue
+                if not p[ord('z') - ord(a)]:
+                    nr += 1
+                    p[ord('z') - ord(a)] = 1
+    total += nr
+    print(total)
+
+
+if __name__ == '__main__':
+    solve()
