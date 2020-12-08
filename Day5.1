@@ -1,0 +1,29 @@
+def solve():
+    max = 0
+    file1 = open('in.txt', 'r')
+    file2 = open('out.txt', 'w')
+    A = file1.readlines()
+    for line in A:
+        id = 0
+        l = 0
+        r = 127
+        for i in range(0,7):
+            if line[i] == 'F':
+                r = int((l+r)/2)
+            else:
+                l = int((l+r)/2)+1
+        id = l*8
+        l=0
+        r=7
+        for i in range(7, 10):
+            if line[i] == 'L':
+                r = int((l+r)/2)
+            else:
+                l = int((l+r)/2) + 1
+        id+=l
+        max = max if max > id else id
+    print(max)
+
+
+if __name__ == '__main__':
+    solve()
